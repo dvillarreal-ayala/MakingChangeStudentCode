@@ -58,9 +58,34 @@ public class MakingChange {
      *    1. relationship between n & n -1
      *    2. memoizing/tabulating
      *
+     *    Mr. Blick talked about divying up the problem by looking at it as either including or excluding the next coin
+     *    EX.
+     *    count(10, {5, 2, 1})
+     *      Including 5 means that the sum will decrease by 5, and the number of coins will remain the same.
+     *      By excluding the 5, the sum stays the same bu the number of coins decrease.
+     *
+     *   **NOTE** Not sure if it's important, best to use a sorted list and go greatest to least.
+     *   count(10, {5, 2, 1}) should return:
+     *   The number of ways we can make change for 5 with {5, 2, 1} (include the 5)
+     *   +
+     *   The number of ways we can make change for 10 with {2, 1} (exclude the 5).
+     *
+     *   base cases should be:
+     *   sum/target is 0
+     *    - return 1
+     *   i is out of bounds
+     *    - return 0
+     *   sum/target is negative
+     *    - return 0
+     *
+     *    The idea behind incorporating memoization is:
+     *    any time we do a recursive call with target t and n coins, we will save its answer.
+     *    We should use a 2D int array to save the answer for the numbers of ways to get a particular sum considering the coins from index 0 to index i.
      */
     public static long countWays(int target, int[] coins) {
         long numWaysToReturnChange = 0;
+        int[][] pathsForChange = new int[][];
+        //This is currently from least to greatest; switch eventually? or work around
         Arrays.sort(coins);
 
         // super basic idea: add the number of times the coins can make change
@@ -77,14 +102,18 @@ public class MakingChange {
     public static int returnNumWaysBasic(int target, int coin)
     {
         int basicNum = 0;
-        //if the target can be cleanly divided into the target coin, we know a way to return
-        //change is by using a multiple of coin
-        //another step? begin finding what numbers can be added together and still be cleanly divisible.
-        //base case (?)
-        if(target % coin == 0)
+        //base case
+        if (target == 0)
         {
-            basicNum++;
+            return 1;
         }
+        //base case:i is out of bounds
+        //base case
+        if(target < 0)
+        {
+            return 0;
+        }
+
         return basicNum;
     }
 }
