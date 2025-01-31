@@ -6,7 +6,7 @@ import java.util.Arrays;
  *
  * @author Zach Blick
  * @author [DamianVillarreal-Ayala]
- */.
+ */
 
 public class MakingChange {
     /**
@@ -38,6 +38,9 @@ public class MakingChange {
      *   i.e. [1, 3, 5, 10]
      *   (1, 3), (1, 5), (1, 10)
      *
+     *   not sure what the time or space complexity would be, but i imagine I will need a way to speed it up
+     *   if using a recursive route
+     *
      *
      *  Ideas:
      *  simple idea - Just start trying things
@@ -47,6 +50,14 @@ public class MakingChange {
      *  Probably dumb idea:
      *  - Would it make sense to keep track/a copy of each way find to return change, and then compare
      *    against those copies to ensure no duplicate methods when returning countWays?
+     *
+     *    Mr. Blick mentioned idea:
+     *    - Consider the problem by thinking of ways to minimize/make the problem smaller
+     *    --> Think of the problem by changing the amount of coins
+     *    i.e. [5,2,1] -> [2,1] -> [1]
+     *    1. relationship between n & n -1
+     *    2. memoizing/tabulating
+     *
      */
     public static long countWays(int target, int[] coins) {
         long numWaysToReturnChange = 0;
