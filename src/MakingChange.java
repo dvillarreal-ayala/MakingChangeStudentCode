@@ -9,6 +9,8 @@ import java.util.Arrays;
  */
 
 public class MakingChange {
+    private static int[][] pathsForChange;
+
     /**
      * TODO: Complete this function, countWays(), to return the number of ways to make change
      *  for any given total with any given set of coins.
@@ -82,24 +84,30 @@ public class MakingChange {
      *    any time we do a recursive call with target t and n coins, we will save its answer.
      *    We should use a 2D int array to save the answer for the numbers of ways to get a particular sum considering the coins from index 0 to index i.
      */
-    public static long countWays(int target, int[] coins) {
-        long numWaysToReturnChange = 0;
-        int[][] pathsForChange = new int[][];
-        //This is currently from least to greatest; switch eventually? or work around
-        Arrays.sort(coins);
 
-        // super basic idea: add the number of times the coins can make change
-        for(int i = 0; i < coins.length; i++)
+//    public static pathsForChange;
+
+    public static long countWays(int target, int[] coins) {
+        long countChange = 0;
+        pathsForChange = new int[target][coins.length];
+        int[] coinTest = new int[coins.length];
+
+        //ReOrganizes coins from smallest to largest
+        Arrays.sort(coins);
+        int j = 0;
+        for(int i = coins.length - 1; i >= 0; i--)
         {
-            System.out.println(coins[i]);
-            numWaysToReturnChange += returnNumWaysBasic(target, coins[i]);
+            coinTest[j] = coins[i];
+//            System.out.println(coinTest[j]);
+            j++;
         }
 
+        countChange = count(target, coins);
 
-        return numWaysToReturnChange;
+        return countChange;
     }
 
-    public static int returnNumWaysBasic(int target, int coin)
+    public static int count(int target, int[] coins)
     {
         int basicNum = 0;
         //base case
@@ -107,12 +115,24 @@ public class MakingChange {
         {
             return 1;
         }
-        //base case:i is out of bounds
         //base case
-        if(target < 0)
+        //base case:i is out of bounds
+        if(target < 0 || coins.length == 0)
         {
             return 0;
         }
+        //if
+
+        //Save the answer of any recursive calls
+
+        //count(sum, i) = count(sum - coins[i], i) + count(sum, i+1)
+
+        //Do i need to make this universal or pass it into the recursion ?
+        pathsForChange[target][coins.length] =
+                count(target - coins[coins.length - 1], coins) +
+                        count(target, coins);
+
+
 
         return basicNum;
     }

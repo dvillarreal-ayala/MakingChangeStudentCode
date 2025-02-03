@@ -6,7 +6,8 @@ Name: Damian Villarreal-Ayala
 | jan 27  |   1-2pm    |                                                                                                                                              Began working on code/writingideas down, main focus on just writing out thought process and trying to build off of those ideas. |
 | Jan 29  | 11-11:30am |                                                                                                                                        Spent some time looking over notes and tried to think about how I would implement a recursive method, need to think about base cases. |
 | Jan 29  |  8-9:15pm  | Started thinking about how to divy up the problem into smaller sections, and started considering between changing the number of coins i'm working with as I go thru or changing the target number. I figure I will need dynamic programming to make it work or be efficient. |
-| Jan 31   | 12:40-1:40 |                                                                                                                                                         Added notes from Mr. Blick' theory/help into notes section. Started trying to implement the stratagies talked about. |
+| Jan 31  | 12:40-1:40 |                                                                                                                                                         Added notes from Mr. Blick' theory/help into notes section. Started trying to implement the stratagies talked about. |
+| Feb 3   |   2-3pm    |                                                                    Reorganized coin list to greatest to smallest. Started trying to implement recursive methods and need to clean up code, add the i-out-of-bounds base case, and then check to see if it passes test cases. |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
