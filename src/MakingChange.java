@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * The class Making Change solves a classic problem:
  * given a set of coins, how many ways can you make change for a target amount?
@@ -62,12 +60,12 @@ public class MakingChange {
      *
      *    Mr. Blick talked about divying up the problem by looking at it as either including or excluding the next coin
      *    EX.
-     *    count(10, {5, 2, 1})
+     *    countMemoization(10, {5, 2, 1})
      *      Including 5 means that the sum will decrease by 5, and the number of coins will remain the same.
      *      By excluding the 5, the sum stays the same bu the number of coins decrease.
      *
      *   **NOTE** Not sure if it's important, best to use a sorted list and go greatest to least.
-     *   count(10, {5, 2, 1}) should return:
+     *   countMemoization(10, {5, 2, 1}) should return:
      *   The number of ways we can make change for 5 with {5, 2, 1} (include the 5)
      *   +
      *   The number of ways we can make change for 10 with {2, 1} (exclude the 5).
@@ -89,51 +87,61 @@ public class MakingChange {
 
     public static long countWays(int target, int[] coins) {
         long countChange = 0;
-        pathsForChange = new int[target][coins.length];
-        int[] coinTest = new int[coins.length];
+        pathsForChange = new int[target + 1][coins.length + 1];
 
-        //ReOrganizes coins from smallest to largest
-        Arrays.sort(coins);
-        int j = 0;
-        for(int i = coins.length - 1; i >= 0; i--)
+        //Fill pathsForChange with -1 to avoid issues later when checking results
+        for(int i = 0; i <= target; i++)
         {
-            coinTest[j] = coins[i];
-//            System.out.println(coinTest[j]);
-            j++;
+            for(int k = 0; k <= coins.length; k++)
+            {
+                pathsForChange[i][k] = -1;
+            }
         }
 
-        countChange = count(target, coins);
-
+        countChange = countMemoization(target, coins, coins.length);
+//        countChange = countTabulation(target, coins);
         return countChange;
     }
 
-    public static int count(int target, int[] coins)
+    public static int countMemoization(int target, int[] coins, int index)
     {
-        int basicNum = 0;
         //base case
         if (target == 0)
         {
             return 1;
         }
-        //base case
-        //base case:i is out of bounds
-        if(target < 0 || coins.length == 0)
+        //base case:i is out of bounds & target is less than zero.
+        if(target < 0 || index == 0)
         {
             return 0;
         }
-        //if
+        //if there's already a calculated result for pathsForChange, return that result.
+        if(pathsForChange[target][index] != -1)
+        {
+            return pathsForChange[target][index];
+        }
 
         //Save the answer of any recursive calls
-
-        //count(sum, i) = count(sum - coins[i], i) + count(sum, i+1)
-
+        //countMemoization(sum, i) = countMemoization(sum - coins[i], i) + countMemoization(sum, i+1)
         //Do i need to make this universal or pass it into the recursion ?
-        pathsForChange[target][coins.length] =
-                count(target - coins[coins.length - 1], coins) +
-                        count(target, coins);
+        pathsForChange[target][index] =
+                countMemoization(target - coins[index - 1], coins, index) + countMemoization(target, coins,
+                        index - 1);
 
-
-
-        return basicNum;
+        return pathsForChange[target][index];
     }
+
+    private static long countTabulation(int target, int[] coins) {
+        // Initialize the tabulation array
+        long[] waysToMake = new long[target + 1];
+        waysToMake[0] = 1;
+
+        // Iterate over the coins, looking at every subsequent index of the array until the end.
+                // Add the number of ways to make change for the current index
+
+
+        // Return the number of ways to make change for the target
+        return 0;
+    }
+
 }
