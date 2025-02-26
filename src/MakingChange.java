@@ -37,7 +37,7 @@ public class MakingChange {
      *   - start with first coin, recurse with each consecutive coin?
      *   i.e. [1, 3, 5, 10]
      *   (1, 3), (1, 5), (1, 10)
-     *
+     *.
      *   not sure what the time or space complexity would be, but i imagine I will need a way to speed it up
      *   if using a recursive route
      *
